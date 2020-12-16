@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-//Middleware
+//Middleware - required for handling POST requests
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 

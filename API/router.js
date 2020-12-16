@@ -89,5 +89,68 @@ router.post('/', (req, res) => {
     res.status(200).json(newStudent);
 });
 
+/**
+ *  Handles PUT requests to the API. 
+ *  Updates a given Student entry with the specified values. 
+ */
+router.put('/:id', (req, res) => {
+
+    var id = req.params.id;
+    var query = {id};
+
+    var studentDetails = {};
+    if(req.body.name) studentDetails.name = req.body.name;
+    if(req.body.course) studentDetails.course = req.body.course;
+
+    var updateDetails = { 
+        $set: studentDetails
+    };
+
+    if(req.body.name == null && req.body.course == null){
+        res.status(400).json({msg: `Please provide either a name or course value to be updated for id ${id}`});
+    }
+
+    MongoClient.connect(url, (err, db) => {
+
+        if(err) throw err;
+        var dbObj = db.db('School_DB');
+        dbObj.collection('Students').updateOne(query, updateDetails, (err, result) => {
+            if(err) throw err;
+            if(result != null){
+                console.log(`Updated student with id ${id}: ${result.result}`);
+                res.json(result);
+            }else{
+                res.status(400).json({ msg: `Item with id ${id} not found.`});
+            }
+            db.close();
+        });
+    });
+});
+
+/**
+ *  Handle DELETE requests. 
+ *  Deletes the student with the given id. 
+ */
+router.delete('/:id', (req, res) => {
+
+    var id = req.params.id;
+    var query = {id};
+
+    MongoClient.connect(url, (err, db) => {
+        if(err) throw err;
+        const dbObj = db.db("School_DB");
+        dbObj.collection('Students').deleteOne(query, (err, result) => {
+            if(err) throw err;
+            if(result != null){
+                console.log(`Deleting student with id ${id}`);
+                res.json(result);
+            }else{
+                res.status(400).json({msg: `Student with id ${id} not found.`})
+            }
+            db.close();
+        });
+    });
+
+});
 
 module.exports = router;
