@@ -3,12 +3,15 @@
 */
 
 const express = require('express');
+var cors = require("cors");
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-//Middleware - required for handling POST requests
-app.use(express.json());
+//Middleware 
+app.use(express.json()); //required for handling POST requests
 app.use(express.urlencoded({extended: false}));
+app.use(cors()); //required for allowing requests from external servers
 
 app.listen(PORT, () => {
     console.log(`Express web server listening on port ${PORT}`);

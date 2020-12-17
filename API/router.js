@@ -17,6 +17,8 @@ const router = express.Router();
 */
 router.get('/', (req, res) => {
 
+    console.log("GET request received.");
+
     MongoClient.connect(url, (err, db) => {
         if(err) throw err;
         var dbObj = db.db("School_DB");

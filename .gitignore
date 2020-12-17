@@ -1,2 +1,7 @@
 node_modules/
 package-lock.json
+react_client/.eslintcache
+react_client/.gitignore
+react_client/README.md
+react_client/public/logo512.png
+react_client/src/App.test.js
