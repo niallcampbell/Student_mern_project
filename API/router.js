@@ -67,6 +67,8 @@ router.get('/:id', (req, res) => {
 */
 router.post('/', (req, res) => {
 
+    console.log("POST request received.");
+
     var newStudent = {
         id: uuid.v4(),
         name: req.body.name,

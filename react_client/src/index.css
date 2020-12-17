@@ -16,3 +16,20 @@ header {
   color: red;
 }
 
+.formDiv {
+  border: solid 2px lightgray;
+  padding: 20px 3%;
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.StudentDetailsTable {
+  border: solid 2px lightgray;
+  padding: 10px 3%;
+  margin: auto;
+  width: 70%;
+  text-align: center;
+  border-radius: 10px;
+}
