@@ -3,13 +3,18 @@ import './App.css';
 import Header from './components/layout/Header';
 import Table from './components/Table';
 import AddStudent from './components/AddStudent';
+import EditStudent from './components/EditStudent';
 import Axios from 'axios';
 
 class App extends React.Component {
 
   //state will store the current list of students in the DB
   state = {
-    students: []
+    students: [],
+    showTable: true,
+    showAddStudent: true,
+    showEdit: false,
+    studentEditID: ''
   }
 
   /**
@@ -35,21 +40,62 @@ class App extends React.Component {
             }
       ).then((res) => {
         console.log(res.data);
+        alert(`Successfully added student ${name}`);
         window.location.reload();
       });
   }
 
+  /**
+   *  Remove student from DB. 
+   */
+  deleteStudent(id){
+    Axios.delete(`http://localhost:5000/api/student/${id}`).then(() => {
+      console.log(`Deleted student with id ${id}`);
+      window.location.reload();
+      alert(`Deleted student with id ${id}`);
+    });
+  }
+
+  /**
+   *  Update the details of the student. 
+   */
+  updateStudentDetails(id, name, course){
+
+    Axios.put(`http://localhost:5000/api/student/${id}`, 
+            {
+              name,
+              course
+            }
+    ).then(() => {
+        console.log(`Updated student with id ${id}`);
+        window.location.reload();
+        alert(`Updated student with id ${id}`);
+    });
+  }
+
+  /**
+   *  Hide student table and show the edit div for given student. 
+   *  show == boolean
+   */
+  showEditStudentDiv = (id) => {
+
+    this.setState({ studentEditID: id, showEdit: true, showAddStudent: false, showTable: false});
+
+  }
+  
   render(){
     return (
       <div className="App">
           <Header />
           <p>App to list all the students in the school. </p>
           <br/>
-          <AddStudent addStudentToDB={this.addStudentToDB} />
+          {this.state.showAddStudent && <AddStudent addStudentToDB={this.addStudentToDB} />}
           <br/>
           <br/>
-          <Table students={this.state.students}/>
+          {this.state.showTable && <Table students={this.state.students} deleteStudent={this.deleteStudent}
+              showEditStudentDiv={this.showEditStudentDiv}    />}
           <br/>
+          {this.state.showEdit && <EditStudent updateStudentDetails={this.updateStudentDetails} studentEditID={this.state.studentEditID} />}
       </div>
     );
   }

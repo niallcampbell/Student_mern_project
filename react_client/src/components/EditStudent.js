@@ -1,14 +1,14 @@
 /**
- *  Class component for adding a student. 
- *  Renders a form that allows a user to create a new student. 
+ *  Component for editing Student. 
  */
 
  import React from 'react';
 
- class AddStudent extends React.Component {
+ class EditStudent extends React.Component {
 
     // state will store the details entered in the form
     state = {
+        id: '',
         name: '',
         course: ''
     }
@@ -25,28 +25,30 @@
     }
 
     /**
+     *  Triggered when user clicks submit button. 
      *  When the user enters the data, it is passed back to App.js
      *  After it resets the state variable
      * @param e 
      */
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.addStudentToDB(this.state.name, this.state.course);
+        this.props.updateStudentDetails(this.props.studentEditID, this.state.name, this.state.course);
         this.setState({ name: '', course: '' });
     }
 
-    render() {
+    render()
+    {
         return (
             <div className="formDiv">
-                <h2>Add Student</h2>
+                <h2>Edit Student</h2>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label for="StudentName">Name</label>
+                        <label for="StudentName">New Name</label>
                         <input type="text" className="form-control" id="StudentName" placeholder="Enter student's name..." 
                             onChange={this.onChange} />
                     </div>
                     <div>
-                        <label for="StudentCourse">Course</label>
+                        <label for="StudentCourse">New Course</label>
                         <input type="text" className="form-control" id="StudentCourse" placeholder="Enter course name..."
                             onChange={this.onChange} />
                     </div>
@@ -56,6 +58,8 @@
             </div>
         );
     }
+
+
  }
 
- export default AddStudent;
+ export default EditStudent;

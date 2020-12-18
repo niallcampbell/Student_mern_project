@@ -13,7 +13,8 @@ import TableRow from './TableRow';
 
         if(this.props.students){
             var studentDetails = this.props.students.map((s) => {
-                return <TableRow key={s.id} student={s} />
+                return <TableRow key={s.id} student={s} deleteStudent={this.props.deleteStudent}
+                                showEditStudentDiv={this.props.showEditStudentDiv}/>
             });
         } 
         
