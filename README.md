@@ -7,20 +7,20 @@ React will be used to render the Frontend web pages, Node JS and Express will be
 
 Steps to create the Mongo DB data in Mongo shell:
 
-mongo
-use School_DB
-db.createsCollection('Students')
-db.Students.insert( {id: "1", name: "Niall Campbell", course: "CSSE"} )
-db.Students.insert( {id: "2", name: "John Smith", course: "History"} )
-db.Students.find().pretty()
+-> mongo
+-> use School_DB
+-> db.createsCollection('Students')
+-> db.Students.insert( {id: "1", name: "Niall Campbell", course: "CSSE"} )
+-> db.Students.insert( {id: "2", name: "John Smith", course: "History"} )
+-> db.Students.find().pretty()
 
 
 Set up Express:
 
-cd Student_mern_project
-npm i -y
-npm i express
-npm i -D nodemon
-npm i mongodb
-npm run dev
+-> cd Student_mern_project
+-> npm i -y
+-> npm i express
+-> npm i -D nodemon
+-> npm i mongodb
+-> npm run dev
 
